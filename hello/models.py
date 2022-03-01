@@ -19,7 +19,8 @@ class Calculator(object):
 if __name__ == '__main__':
     while 1:
         menu = input('0.Exit 1.계산기(+,-,*,/)')
-        if menu == 0:
+        if menu == '0':
+            print('종료')
             break
         elif menu == '1':
             num1 = int(input('첫번째 수'))
@@ -31,8 +32,8 @@ if __name__ == '__main__':
             print(f'{calc.num1} - {calc.num2} = {calc.sub()}')
             print(f'{calc.num1} * {calc.num2} = {calc.mul()}')
             print(f'{calc.num1} / {calc.num2} = {calc.div()}')
-            
         else:
-            print('1 입력')
+            print('0~1 입력')
+
             
 
