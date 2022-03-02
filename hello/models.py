@@ -44,9 +44,7 @@ def main():
         elif menu == '5':
             print(Quiz05Dice.dice())
         elif menu == '6':
-            start = input('시작점')
-            end = input('끝점')
-            q6 = Quiz06RandomGenerator(start, end)
+            q6 = Quiz06RandomGenerator(input('시작점'),input('끝점'))
             print(q6.random())
         elif menu == '7':
             q7 = Quiz07RandomChoice()
@@ -180,7 +178,7 @@ class Quiz06RandomGenerator(object): # 원하는 범위의 정수에서 랜덤�
         self.end = end
 
     def random(self):
-        return random.randint(self.start, self.end)
+        return myRandom(self.start, self.end)
 
 class Quiz07RandomChoice(object):
 
