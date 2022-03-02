@@ -2,7 +2,7 @@ import random
 
 def main():
     while 1:
-        menu = input('0.Exit 1.계산기(+,-,*,/) 2.BMI 3.성적표 4.자동 성적표 5.주사위 6.랜덤값 7.랜덤 학생 8.가위바위보' )
+        menu = input('0.Exit 1.계산기(+,-,*,/) 2.BMI 3.성적표 4.자동 성적표 5.주사위 6.미정 7.랜덤 학생 8.가위바위보 9.소수 판별기' )
         if menu == '0':
             print('종료')
             break
@@ -53,7 +53,9 @@ def main():
             print('*'*30)
             print(q8.game())
         elif menu == '9':
-            q9 = Quiz09GetPrime()
+            q9 = Quiz09GetPrime(int(input('숫자 입력')))
+            print('*'*30)
+            print(q9.getPrime())
         elif menu == '10':
             q10 = Quiz10LeapYear()
         elif menu == '11':
@@ -193,34 +195,50 @@ class Quiz08Rps(object):
         c = self.computer
         p = self.player
         rps = ['가위', '바위', '보']
-        if p == 1:
+        '''if p == 1:
             if c == 1:
-                res = f'플레이어{rps[0]}, 컴퓨터{rps[0]}, 결과: 무승부'
+                res = f'플레이어:{rps[0]}, 컴퓨터:{rps[0]}, 결과: 무승부'
             elif c == 2:
-                res = f'플레이어{rps[0]}, 컴퓨터{rps[1]}, 결과: 패배'
+                res = f'플레이어:{rps[0]}, 컴퓨터:{rps[1]}, 결과: 패배'
             elif c == 3:
-                res = f'플레이어{rps[0]}, 컴퓨터{rps[2]}, 결과: 승리'
+                res = f'플레이어:{rps[0]}, 컴퓨터:{rps[2]}, 결과: 승리'
         elif p == 2:
             if c == 1:
-                res = f'플레이어{rps[1]}, 컴퓨터{rps[0]}, 결과: 승리'
+                res = f'플레이어:{rps[1]}, 컴퓨터:{rps[0]}, 결과: 승리'
             elif c == 2:
-                res = f'플레이어{rps[1]}, 컴퓨터{rps[1]}, 결과: 무승부'
+                res = f'플레이어:{rps[1]}, 컴퓨터:{rps[1]}, 결과: 무승부'
             elif c == 3:
-                res = f'플레이어{rps[1]}, 컴퓨터{rps[2]}, 결과: 패배'
+                res = f'플레이어:{rps[1]}, 컴퓨터:{rps[2]}, 결과: 패배'
         elif p == 3:
             if c == 1:
-                res = f'플레이어{rps[2]}, 컴퓨터{rps[0]}, 결과: 패배'
+                res = f'플레이어:{rps[2]}, 컴퓨터:{rps[0]}, 결과: 패배'
             elif c == 2:
-                res = f'플레이어{rps[2]}, 컴퓨터{rps[1]}, 결과: 승리'
+                res = f'플레이어:{rps[2]}, 컴퓨터:{rps[1]}, 결과: 승리'
             elif c == 3:
-                res = f'플레이어{rps[2]}, 컴퓨터{rps[2]}, 결과: 무승부'
+                res = f'플레이어:{rps[2]}, 컴퓨터:{rps[2]}, 결과: 무승부'
+        else:
+            res = '1~3 입력'
+        return res'''
+        if p == c:
+            res = f'플레이어:{rps[p - 1]}, 컴퓨터:{rps[c - 1]}, 결과:무승부'
+        elif p - c == 1 or p - c == -2:
+            res = f'플레이어:{rps[p - 1]}, 컴퓨터:{rps[c - 1]}, 결과:승리'
+        elif p - c == -1 or p - c == 2:
+            res = f'플레이어:{rps[p - 1]}, 컴퓨터:{rps[c - 1]}, 결과:패배'
         else:
             res = '1~3 입력'
         return res
 
 class Quiz09GetPrime(object):
-    def __init__(self):
-        pass
+    def __init__(self, num):
+        self.num = num
+
+    def getPrime(self):
+        for i in range(2, self.num):
+            if self.num % i == 0:
+                return f'{self.num}은 소수가 아닙니다'
+        return f'{self.num}은 소수가 맞습니다'
+                
 class Quiz10LeapYear(object):
     def __init__(self):
         pass
