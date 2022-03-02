@@ -44,17 +44,14 @@ def main():
         elif menu == '5':
             print(Quiz05Dice.dice())
         elif menu == '6':
-            q6 = Quiz06RandomGenerator(input('시작점'),input('끝점'))
-            print(q6.random())
+            q6 = None
         elif menu == '7':
             q7 = Quiz07RandomChoice()
             print(q7.chooseMember())
         elif menu == '8':
-            player = input('1:가위 2:바위 3:보')
-            q8 = Quiz08Rps(player)
+            q8 = Quiz08Rps(int(input('1:가위 2:바위 3:보')))
             print('*'*30)
             print(q8.game())
-
         elif menu == '9':
             q9 = Quiz09GetPrime()
         elif menu == '10':
@@ -171,14 +168,8 @@ class Quiz05Dice(object):
     def dice():
         return myRandom(1,6)
 
-class Quiz06RandomGenerator(object): # 원하는 범위의 정수에서 랜덤값 1개 추출
-
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
-
-    def random(self):
-        return myRandom(self.start, self.end)
+class Quiz06(object):
+    pass
 
 class Quiz07RandomChoice(object):
 
