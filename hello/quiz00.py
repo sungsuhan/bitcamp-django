@@ -110,33 +110,32 @@ class Quiz00:
         math = myRandom(0,100)
         sum = self.sum(kor, eng, math)
         avg = self.avg(kor, eng, math)
-        #grade = self.grade(kor,eng,math)
+        grade = self.grade(kor,eng,math)
         passChk = self.passChk(kor,eng,math)
         print(f'이름:{name} \n'
               f'국어:{kor}점 영어:{eng}점 수학:{math}점 \n'
               f'총점:{sum}점 \n'
               f'평균:{avg}점 \n'
-              #f'등급:{grade} \n'
+              f'등급:{grade} \n'
               f'합/불:{passChk}')
 
     def sum(self,kor,eng,math):
-        return self.kor + self.eng + self.math
+        return kor + eng + math
 
-    def avg(self):
-        return (self.kor + self.eng + self.math) / 3
+    def avg(self,kor,eng,math):
+        return (kor + eng + math) / 3
 
-    '''def grade(self,kor,eng,math):
-        if (self.avg(self.kor,self.eng,self.math)) >= 90:
+    def grade(self,kor,eng,math):
+        if (self.avg(kor,eng,math)) >= 90:
             return 'A등급'
-        elif (self.avg(self.kor,self.eng,self.math)) >=80:
+        elif (self.avg(kor,eng,math)) >=80:
             return 'B등급'
-        elif (self.avg(self.kor,self.eng,self.math)) >=70:
+        elif (self.avg(kor,eng,math)) >=70:
             return 'C등급'
-        elif (self.avg(self.kor,self.eng,self.math)) >=60:
+        elif (self.avg(kor,eng,math)) >=60:
             return 'D등급'
         else:
             return 'F등급'
-            '''
 
     def passChk(self,kor,eng,math):  # 60점이상이면 합격
         if (self.avg(kor,eng,math)) >= 60:
@@ -145,15 +144,12 @@ class Quiz00:
             return '불합격'
 
     def quiz06memberChoice(self):
-        members = ['홍정명', '노홍주', '전종현', '정경준', '양정오',
-                   '권혜민', '서성민', '조현국', '김한슬', '김진영',
-                   '심민혜', '권솔이', '김지혜', '하진희', '최은아',
-                   '최민서', '한성수', '김윤섭', '김승현',
-                   '강  민', '최건일', '유재혁', '김아름', '장원종']
-        return members[myRandom(0, 23)]
+        print(members()[myRandom(0,23)])
 
     def quiz07lotto(self):
-        pass
+        for i in range(6):
+            res = myRandom(1,45)
+            print(res)
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현
         pass
