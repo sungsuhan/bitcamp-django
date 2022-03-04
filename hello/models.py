@@ -145,7 +145,8 @@ class Quiz08Rps(object):
                 res = f'플레이어:{rps[2]}, 컴퓨터:{rps[2]}, 결과: 무승부'
         else:
             res = '1~3 입력'
-        return res'''
+        return res
+        '''
         if p == c:
             res = f'플레이어:{rps[p - 1]}, 컴퓨터:{rps[c - 1]}, 결과:무승부'
         elif p - c == 1 or p - c == -2:
@@ -157,7 +158,7 @@ class Quiz08Rps(object):
         return res
 
 class Quiz09GetPrime(object):
-    def __init__(self, num):
+    '''def __init__(self, num):
         self.num = num
 
     def getPrime(self):
@@ -165,6 +166,21 @@ class Quiz09GetPrime(object):
             if self.num % i == 0:
                 return f'{self.num}은 소수가 아닙니다'
         return f'{self.num}은 소수가 맞습니다'
+        '''
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+
+    def getPrime(self):
+        res = ''
+        for i in range(self.num1, self.num2 + 1):
+            c = 0
+            for k in range(1, i + 1):
+                if i % k == 0:
+                    c += 1
+            if c <= 2:
+                    res += f'{i} \t'
+        return res
                 
 class Quiz10LeapYear(object):
     def __init__(self):
