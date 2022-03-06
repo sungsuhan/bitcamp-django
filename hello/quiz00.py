@@ -4,23 +4,24 @@ from hello.domains import my100, myRandom, members
 
 
 class Quiz00:
-    def quiz00calculator(self)-> float:
+    def quiz00calculator(self) -> float:
         a = my100()
         b = my100()
         o = ['+','-','*','/','%']
-        op = myRandom(0,4)
+        op = o[myRandom(0,4)]
 
-        if(o[op] == '+'):
+        if op == '+':
             res = self.add(a,b)
-        elif(o[op] == '-'):
+        elif op == '-':
             res = self.sub(a,b)
-        elif (o[op] == '*'):
+        elif op == '*':
             res = self.mul(a,b)
-        elif (o[op] == '/'):
+        elif op == '/':
             res = self.div(a,b)
-        elif (o[op] == '%'):
+        elif op == '%':
             res = self.mod(a,b)
-        print(f'{a} {o[op]} {b} = {res}')
+        print(f'{a} {op} {b} = {res}')
+        return None
 
     def add(self, a, b) -> float:
         return a + b
@@ -54,9 +55,11 @@ class Quiz00:
         else:
             res = '저체중'
         print(f'{this.name} 키:{this.height}cm 몸무게:{this.weight}kg BMI결과:{res}')
+        return None
 
     def quiz02dice(self):
         print(myRandom(1, 6))
+        return None
 
     def quiz03rps(self):
         c = myRandom(1,3)
@@ -94,6 +97,7 @@ class Quiz00:
         elif p - c == -1 or p - c == 2:
             res = f'플레이어:{rps[p - 1]}, 컴퓨터:{rps[c - 1]}, 결과:패배'
         print(res)
+        return None
 
     def quiz04leap(self):
         year = myRandom(1,2100)
@@ -102,6 +106,7 @@ class Quiz00:
         else:
             res = f'{year}년은 평년'
         print(res)
+        return None
 
     def quiz05grade(self):
         name = members()[myRandom(0,23)]
@@ -118,6 +123,7 @@ class Quiz00:
               f'평균:{avg}점 \n'
               f'등급:{grade} \n'
               f'합/불:{passChk}')
+        return None
 
     def sum(self,kor,eng,math):
         return kor + eng + math
@@ -145,14 +151,37 @@ class Quiz00:
 
     def quiz06memberChoice(self):
         print(members()[myRandom(0,23)])
+        return None
 
     def quiz07lotto(self):
         for i in range(6):
             res = myRandom(1,45)
             print(res)
+        return None
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현
-        pass
+        name = members()[myRandom(0,23)]
+        res = 0
+        while 1:
+            menu = int(input('0.종료 1.입금 2.출금'))
+            if menu == 0:
+                print('종료')
+                break
+            elif menu == 1:
+                deposit = int(input('입금(원):'))
+                res += deposit
+                print(f'{name}님 잔액:{res}원')
+            elif menu == 2:
+                withdraw = int(input('출금(원)'))
+                res -= withdraw
+                print(f'{name}님 잔액:{res}원')
+        return None
 
     def quiz09gugudan(self):  # 책받침구구단
-        pass
+        for i in range(2,10,4):
+            for j in range(1,10):
+                for k in range(0,3):
+                    print(i+k,'X', j, '=', (i+k)*j, end='\t')
+                print(i+3,'X', j, '=', (i+3)*j)
+            print()
+        return None
