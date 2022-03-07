@@ -213,7 +213,7 @@ class Account(object):
                 del ls[i]
 
     @staticmethod
-    def main(self):
+    def main():
         ls = []
         while 1:
             menu = input('0.종료 1.계좌개설 2.계좌목록 3.입금 4.출금 5.계좌해지')
@@ -221,7 +221,7 @@ class Account(object):
                 print('종료')
                 break
             elif menu == '1':
-                acc = Account()
+                acc = Account(None, None, None)
                 print(f'{acc.to_string()} 계좌개설 완료')
                 ls.append(acc)
             elif menu == '2':
