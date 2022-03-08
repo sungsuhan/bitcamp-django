@@ -158,21 +158,6 @@ class Quiz00:
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현
         Account.main()
-        '''acc = Account()
-        print(acc.to_string())
-        while 1:
-            menu = int(input('0.종료 1.입금 2.출금'))
-            if menu == 0:
-                print('종료')
-                break
-            elif menu == 1:
-                deposit = int(input('입금(원):'))
-                acc.money += deposit
-                print(f'{acc.name}님 잔액:{acc.money}원')
-            elif menu == 2:
-                withdraw = int(input('출금(원)'))
-                acc.money -= withdraw
-                print(f'{acc.name}님 잔액:{acc.money}원')'''
         return None
 
     def quiz09gugudan(self):  # 책받침구구단
@@ -207,16 +192,35 @@ class Account(object):
     def creat_account_number():
         return "".join(['-' if (i==3 or i==6) else str(myRandom(0,9)) for i in range(13)])
 
-    def del_account(self, ls, account_number):
+    @staticmethod
+    def deposit_account(ls, account_number, deposit):
+        for i, j in enumerate(ls):
+            if j.account_number == account_number:
+                ls[i].money += deposit
+                return ls[i]
+
+    @staticmethod
+    def withdraw_account(ls, account_number, withdraw):
+        for i, j in enumerate(ls):
+            if j.account_number == account_number:
+                ls[i].money -= withdraw
+                return ls[i]
+
+    @staticmethod
+    def del_account(ls, account_number):
         for i, j in enumerate(ls):
             if j.account_number == account_number:
                 del ls[i]
 
     @staticmethod
+    def find_account(ls, account_number):
+        return "".join([j.to_string() if j.account_number == account_number else '' for i, j in enumerate(ls)])
+
+    @staticmethod
     def main():
         ls = []
         while 1:
-            menu = input('0.종료 1.계좌개설 2.계좌목록 3.입금 4.출금 5.계좌해지')
+            menu = input('0.종료 1.계좌개설 2.계좌목록 3.입금 4.출금 5.계좌해지 6.계좌조회')
             if menu == '0':
                 print('종료')
                 break
@@ -227,25 +231,16 @@ class Account(object):
             elif menu == '2':
                 print("\n".join([i.to_string() for i in ls]))
             elif menu == '3':
-                account_number = input('입금할 계좌번호')
-                deposit = input('입금액')
-                for i, j in enumerate(ls):
-                    if j.account_number == account_number:
-                        pass
-
+                a = Account.deposit_account(ls, input('입금할 계좌번호'), int(input('입금액(원)')))
+                print(a.to_string())
             elif menu == '4':
-                account_number = input('출금할 계좌번호')
-                withdraw = input('출금액')
-
+                a = Account.withdraw_account(ls, input('출금할 계좌번호'), int(input('출금액(원)')))
+                print(a.to_string())
             elif menu == '5':
-                account_number = input('탈퇴할 계좌번호')
+                Account.del_account(ls, input('탈퇴할 계좌번호'))
+            elif menu == '6':
+                a = Account.find_account(ls, input('조회할 계좌번호'))
+                print(a)
             else:
                 print('Wrong Number.. Try Again')
                 continue
-
-
-
-
-
-
-
