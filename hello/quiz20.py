@@ -2,6 +2,7 @@ import random
 import urllib.request
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+import pandas as pd
 
 class Quiz20:
 
@@ -100,31 +101,77 @@ class Quiz20:
         print(a2)
         return None
 
-    def quiz24bugs(self) -> str:
+    def quiz24bugs_zip(self) -> {}:
         url = 'https://music.bugs.co.kr/chart/track/realtime/total'
         html_doc = urlopen(url)
         soup = BeautifulSoup(html_doc, 'lxml') # html.parser vs lxml = 속도 차이
-        # print(soup.prettify())
-        artists = soup.find_all('p', {'class' : 'artist'})
-        artists = ([i.get_text() for i in artists])
-        print(''.join(i for i in artists))
-        return None
+        ls1 = self.find_music(soup, 'title')
+        ls2 = self.find_music(soup, 'artist')
+        dict = {}
+        for i, j in zip(ls1, ls2):
+            dict[i] = j
+        print(dict)
+        return dict
+        # self.dict2(ls1, ls2) # enumeration으로 출력
+        # self.dict1(ls1, ls2) # range로 출력 (속도 느림)
+        # self.print_music_list(soup) # 아티스트와 타이틀을 분리해서 출력
+        # self.find_rank(soup) # 랭킹 보기
+
+    @staticmethod
+    def dict2(ls1, ls2) -> None:
+        dict = {}
+        for i, j in enumerate(ls1):
+            dict[j] = ls2[i]
+        print(dict)
+
+    @staticmethod
+    def dict1(ls1, ls2) -> None:
+        dict = {}
+        for i in range(0, len(ls1)):
+            dict[ls1[i]] = ls2[i]
+        print(dict)
+
+    def print_music_list(self, soup) -> None:
+        # artists = soup.find_all('p', {'class': 'artist'})
+        # artists = ([i.get_text() for i in artists])
+        # print(''.join(i for i in artists))
+        # songs = soup.find_all('p', {'class': 'title'})
+        # songs = ([i.get_text() for i in songs])
+        # print(''.join(i for i in songs))
+        for i, j in enumerate(['title', 'artist']):
+            print(''.join(i for i in [i for i in self.find_music(soup, j)]))
+            print('*'*100)
+
+    def find_rank(self, soup) -> None:
+        for i, j in enumerate(['title', 'artist']):
+            for i, j in enumerate(self.find_music(soup, j)):
+                print(f'{i}위 : {j}')
+            print('*'*100)
+
+    @staticmethod
+    def find_music(soup, music) -> []:
+        ls = soup.find_all('p', {'class': music})
+        return [i.get_text() for i in ls]
 
     def quiz25dictcom(self) -> str: return None
 
     def quiz26map(self) -> str: return None
 
-    def quiz27melon(self) -> str:
+    def quiz27melon_zip(self) -> str:
         headers = {'User-Agent': 'Mozilla/5.0'}
         url = 'https://www.melon.com/chart/index.htm?dayTime=2022030816'
         req = urllib.request.Request(url, headers=headers)
         soup = BeautifulSoup(urlopen(req).read(), 'lxml')
         # print(soup.prettify())
-        songs = soup.find_all('div', {'class' : 'ellipsis rank01'})
+        songs = soup.find_all('div', {'class': 'ellipsis rank01'})
         songs = ([i.get_text() for i in songs])
         print(''.join(i for i in songs))
         return None
 
-    def quiz28(self) -> str: return None
+    def quiz28dataframe(self) -> None:
+        dict = self.quiz24bugs_zip()
+        df = pd.DataFrame.from_dict(dict, orient='index')
+        print(df)
+        df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
 
     def quiz29(self) -> str: return None

@@ -13,7 +13,7 @@ if __name__ == '__main__':
     while 1:
         menu = input("00계산기 01Bmi 02주사위 03가위바위보 04윤년 05성적표 06멤버선택 07로또 08입출금 09구구단\n"
                      "10버블 11삽입 12선택 13퀵 14병합 15매직 16지그재그 17소수 18골프 19예약\n"
-                     "20리스트 21튜플 22딕셔너리 23컴프리헨션 24벅스뮤직 25 26 27멜론뮤직 28 29\n"
+                     "20리스트 21튜플 22딕셔너리 23컴프리헨션 24벅스(zip) 25 26 27멜론(zip) 28데이터프레임 29\n"
                      "30 31 32 33 34 35 36 37 38 39")
         if menu == '00': q0.quiz00calculator()
         elif menu == '01': q0.quiz01bmi()
@@ -39,11 +39,11 @@ if __name__ == '__main__':
         elif menu == '21': q2.quiz21tuple()
         elif menu == '22': q2.quiz22dict()
         elif menu == '23': q2.quiz23listcom()
-        elif menu == '24': q2.quiz24bugs()
+        elif menu == '24': q2.quiz24bugs_zip()
         elif menu == '25': q2.quiz25dictcom()
         elif menu == '26': q2.quiz26map()
-        elif menu == '27': q2.quiz27melon()
-        elif menu == '28': q2.quiz28()
+        elif menu == '27': q2.quiz27melon_zip()
+        elif menu == '28': q2.quiz28dataframe()
         elif menu == '29': q2.quiz29()
         elif menu == '30': q3.quiz30()
         elif menu == '31': q3.quiz31()
