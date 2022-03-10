@@ -105,8 +105,8 @@ class Quiz20:
         url = 'https://music.bugs.co.kr/chart/track/realtime/total'
         html_doc = urlopen(url)
         soup = BeautifulSoup(html_doc, 'lxml') # html.parser vs lxml = 속도 차이
-        ls1 = self.find_music(soup, 'title')
-        ls2 = self.find_music(soup, 'artist')
+        ls1 = self.find_bugs_music(soup, 'title')
+        ls2 = self.find_bugs_music(soup, 'artist')
         dict = {}
         for i, j in zip(ls1, ls2):
             dict[i] = j
@@ -131,7 +131,7 @@ class Quiz20:
             dict[ls1[i]] = ls2[i]
         print(dict)
 
-    def print_music_list(self, soup) -> None:
+    def print_bugs_list(self, soup) -> None:
         # artists = soup.find_all('p', {'class': 'artist'})
         # artists = ([i.get_text() for i in artists])
         # print(''.join(i for i in artists))
@@ -139,17 +139,17 @@ class Quiz20:
         # songs = ([i.get_text() for i in songs])
         # print(''.join(i for i in songs))
         for i, j in enumerate(['title', 'artist']):
-            print(''.join(i for i in [i for i in self.find_music(soup, j)]))
+            print(''.join(i for i in [i for i in self.find_bugs_music(soup, j)]))
             print('*'*100)
 
-    def find_rank(self, soup) -> None:
+    def find_bugs_rank(self, soup) -> None:
         for i, j in enumerate(['title', 'artist']):
-            for i, j in enumerate(self.find_music(soup, j)):
+            for i, j in enumerate(self.find_bugs_music(soup, j)):
                 print(f'{i}위 : {j}')
             print('*'*100)
 
     @staticmethod
-    def find_music(soup, music) -> []:
+    def find_bugs_music(soup, music) -> []:
         ls = soup.find_all('p', {'class': music})
         return [i.get_text() for i in ls]
 
@@ -157,16 +157,36 @@ class Quiz20:
 
     def quiz26map(self) -> str: return None
 
-    def quiz27melon_zip(self) -> str:
+    def quiz27melon_zip(self) -> {}:
         headers = {'User-Agent': 'Mozilla/5.0'}
         url = 'https://www.melon.com/chart/index.htm?dayTime=2022030816'
         req = urllib.request.Request(url, headers=headers)
         soup = BeautifulSoup(urlopen(req).read(), 'lxml')
-        # print(soup.prettify())
-        songs = soup.find_all('div', {'class': 'ellipsis rank01'})
-        songs = ([i.get_text() for i in songs])
-        print(''.join(i for i in songs))
-        return None
+        ls1 = self.find_melon_music(soup, 'ellipsis rank01')
+        ls2 = self.find_melon_music(soup, 'ellipsis rank02')
+        dict = {}
+        for i, j in zip(ls1, ls2):
+            dict[i] = j
+        print(dict)
+        return dict
+        # self.print_melon_list(soup) # 아티스트와 타이틀을 분리해서 출력
+        # self.find_melon_rank(soup) # 랭킹 보기
+
+    def print_melon_list(self, soup) -> None:
+        for i, j in enumerate(['ellipsis rank01', 'ellipsis rank02']):
+            print(''.join(i for i in [i for i in self.find_melon_music(soup, j)]))
+            print('*'*100)
+
+    def find_melon_rank(self, soup) -> None:
+        for i, j in enumerate(['ellipsis rank01', 'ellipsis rank02']):
+            for i, j in enumerate(self.find_melon_music(soup, j)):
+                print(f'{i}위 : {j}')
+            print('*'*100)
+
+    @staticmethod
+    def find_melon_music(soup, music) -> []:
+        ls = soup.find_all('div', {'class': music})
+        return [i.get_text() for i in ls]
 
     def quiz28dataframe(self) -> None:
         dict = self.quiz24bugs_zip()
