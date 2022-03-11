@@ -146,9 +146,9 @@ class Quiz00:
         else:
             return '불합격'
 
-    def quiz06memberChoice(self):
-        print(members()[myRandom(0,23)])
-        return None
+    @staticmethod
+    def quiz06memberChoice():
+        return members()[myRandom(0, 23)]
 
     def quiz07lotto(self):
         for i in range(6):
