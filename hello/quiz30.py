@@ -1,6 +1,9 @@
+import string
+import random
 import pandas as pd
 from icecream import ic
 import numpy as np
+from hello.domains import my100
 
 
 class Quiz30:
@@ -12,13 +15,27 @@ class Quiz30:
                 3   7   8   9
                 4  10  11  12
     '''
-    def quiz30_df_4_by_3(self) -> str:
+    def quiz30_df_4_by_3(self) -> object:
+        '''
         df = pd.DataFrame([[1, 2, 3],
                           [4, 5, 6],
                           [7, 8, 9],
                           [10, 11, 12]], index=range(1, 5), columns=['A', 'B', 'C'])
-        # 위 식을 리스트결합 형태로 분해해서 조립하시오
         ic(df)
+        '''
+        # 위 식을 리스트 결합 형태로 분해해서 조립하시오
+        a = []
+        b = []
+        c = []
+        d = []
+        [a.append(i) for i in range(1, 4)]
+        [b.append(i) for i in range(4, 7)]
+        [c.append(i) for i in range(7, 10)]
+        [d.append(i) for i in range(10, 13)]
+        e = {'1': a, '2': b, '3': c, '4': d}
+        df = pd.DataFrame.from_dict(e, orient='index', columns=['A', 'B', 'C'])
+        ic(df)
+
         return None
 
     '''
@@ -28,13 +45,20 @@ class Quiz30:
                 0  97  57  52
                 1  56  83  80
     '''
-    def quiz31_rand_2_by_3(self) -> str:
+    def quiz31_rand_2_by_3(self) -> object:
+        ls1 = []
+        ls2 = []
+        [ls1.append(my100()) for i in range(3)]
+        [ls2.append(my100()) for i in range(3)]
+        a = {'0': ls1, '1': ls2}
+        df = pd.DataFrame.from_dict(a, orient='index', columns=['0', '1', '2'])
+        ic(df)
 
         return None
 
     '''
         데이터프레임 문제 Q04.
-        국어, 영어, 수학, 사회 4과목을 시험치른 10명의 학생들의 성적표 작성.
+        국어, 영어, 수학, 사회 4과목을 시험 치른 10명의 학생들의 성적표 작성.
         단 점수 0 ~ 100이고 학생은 랜덤 알파벳 5자리 ID 로 표기
         ic| df4:        국어  영어  수학  사회
                 lDZid    57   90   55    24
@@ -48,8 +72,12 @@ class Quiz30:
                 PZOTP    94   78   79    96
                 GOJKU    62   17   75    49
     '''
-    def quiz32_df_grade(self) -> str:
-
+    def quiz32_df_grade(self) -> object:
+        scores = [[my100() for i in range(4)] for i in range(10)]
+        students = [''.join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)]
+        dict = {i: j for i, j in zip(students, scores)}
+        df = pd.DataFrame.from_dict(dict, orient='index', columns=['국어', '영어', '수학', '사회'])
+        ic(df)
         return None
 
     def quiz33(self) -> str: return None

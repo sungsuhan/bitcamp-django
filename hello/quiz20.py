@@ -229,13 +229,16 @@ class Quiz20:
     def quiz29_pandas_df(self) -> object:
         d1 = {'a': [1, 2], 'b': [3, 4], 'c': [5, 6]}
         df1 = pd.DataFrame(d1, index=[1, 2])
+
         d2 = {'1': [1, 3, 5], '2': [2, 4, 6]}
         df2 = pd.DataFrame.from_dict(d2, orient='index', columns=['a', 'b', 'c'])
+
         columns = [chr(i) for i in range(97, 100)]
         d3 = []
         d4 = []
         [d3.append(i) if i % 2 != 0 else d4.append(i) for i in range(1, 7)]
-        d5 = {'1': d3, '2':d4}
+        d5 = {'1': d3, '2': d4}
         df3 = pd.DataFrame.from_dict(d5, orient='index', columns=columns)
         print(df3)
+
         return None
