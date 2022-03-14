@@ -24,11 +24,7 @@ class Quiz30:
         ic(df)
         '''
         # 위 식을 리스트 결합 형태로 분해해서 조립하시오
-        ls1 = [i for i in range(1, 4)]
-        ls2 = [i for i in range(4, 7)]
-        ls3 = [i for i in range(7, 10)]
-        ls4 = [i for i in range(10, 13)]
-        dt = {'1': ls1, '2': ls2, '3': ls3, '4': ls4}
+        dt = {'1': range(1, 4), '2': range(4, 7), '3': range(7, 10), '4': range(10, 13)}
         df = pd.DataFrame.from_dict(dt, orient='index', columns=['A', 'B', 'C'])
         ic(df)
         return None
@@ -41,9 +37,9 @@ class Quiz30:
                 1  56  83  80
     '''
     def quiz31_rand_2_by_3(self) -> object:
-        ls = [[my100() for i in range(3)] for i in range(2)]
-        dt = {i: j for i, j in zip([0, 1], ls)}
-        df = pd.DataFrame.from_dict(dt, orient='index', columns=['0', '1', '2'])
+        ls = [[my100() for i in range(2)] for i in range(3)]
+        dt = {i: j for i, j in zip([0, 1, 2], ls)}
+        df = pd.DataFrame.from_dict(dt)
         ic(df)
         return None
 
@@ -84,24 +80,6 @@ class Quiz30:
     def quiz38(self) -> str: return None
 
     def quiz39(self) -> str: return None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -219,6 +219,7 @@ class Quiz20:
         df = pd.DataFrame.from_dict(dt, orient='index')
         print(df)
         df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
+        return None
 
     '''
         데이터프레임 문제 Q01.
@@ -229,16 +230,24 @@ class Quiz20:
     def quiz29_pandas_df(self) -> object:
         d1 = {'a': [1, 2], 'b': [3, 4], 'c': [5, 6]}
         df1 = pd.DataFrame(d1, index=[1, 2])
-
+        '''
+            a  b  c
+         1  1  3  5
+         2  2  4  6        
+         '''
         d2 = {'1': [1, 3, 5], '2': [2, 4, 6]}
-        df2 = pd.DataFrame.from_dict(d2, orient='index', columns=['a', 'b', 'c'])
-
+        df2 = pd.DataFrame.from_dict(d2)
+        '''
+            1  2
+         0  1  2
+         1  3  4
+         2  5  6
+        '''
         columns = [chr(i) for i in range(97, 100)]
-        d3 = []
-        d4 = []
-        [d3.append(i) if i % 2 != 0 else d4.append(i) for i in range(1, 7)]
-        d5 = {'1': d3, '2': d4}
-        df3 = pd.DataFrame.from_dict(d5, orient='index', columns=columns)
+        odds = []
+        evens = []
+        [odds.append(i) if i % 2 != 0 else evens.append(i) for i in range(1, 7)]
+        d3 = {'1': odds, '2': evens}
+        df3 = pd.DataFrame.from_dict(d3, orient='index', columns=columns)
         print(df3)
-
         return None
