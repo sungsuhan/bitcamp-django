@@ -3,8 +3,8 @@ import random
 import pandas as pd
 from icecream import ic
 import numpy as np
-from hello.domains import my100, myRandom, members
-from titanic.models import Model
+from hello.domains import members
+from context.models import Model
 
 
 class Quiz30:
@@ -73,18 +73,34 @@ class Quiz30:
         return None
 
     def quiz33_df_loc(self) -> object:
-        '''subject = ['JAVA', 'Python', 'Java Script', 'SQL']
-        student = members()
-        score = np.random.randint(0, 100, (24, 4))
-        dt = {i: j for i, j in zip(student, score)}
-        df = pd.DataFrame.from_dict(dt, orient='index', columns=subject)
-        ic(df)
-        df.to_csv('./save/grade.csv', sep=',', na_rep='NaN')'''
-        # https: // pandas.pydata.org / docs / reference / api / pandas.DataFrame.loc.html
+        subjects = ['JAVA', 'Python', 'Java Script', 'SQL']
+        students = members()
+        scores = np.random.randint(0, 100, (24, 4))
+        students_scores = {student: score for student, score in zip(students, scores)}
+        students_scores_df = pd.DataFrame.from_dict(students_scores, orient='index', columns=subjects)
+        # ic(students_scores_df)
+        # students_scores_.to_csv('./save/grade.csv', sep=',', na_rep='NaN')
+        # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
         # grade.csv
         model = Model()
-        grade_df = model.new_model('grade.csv')
+        # model.save_model(fname='grade.csv', dframe=students_scores_df)
+        grade_df = model.new_model(fname='grade.csv')
         ic(grade_df)
+
+        print('Q1. 파이썬의 점수만 출력하시오')
+        python_scores = grade_df.loc[:, 'Python']
+        ic(python_scores)
+        ic(type(python_scores))
+
+        print('Q2. 조현국의 점수만 출력하시오')
+        cho_scores = grade_df.loc['조현국']
+        ic(cho_scores)
+        ic(type(cho_scores))
+
+        print('Q3. 조현국의 과목별 점수를 출력하시오')
+        cho_subjects_scores = grade_df.loc[['조현국']]
+        ic(cho_subjects_scores)
+        ic(type(cho_subjects_scores))
         return None
 
     @staticmethod

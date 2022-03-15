@@ -110,7 +110,7 @@ class Quiz20:
         soup = BeautifulSoup(html_doc, 'lxml') # html.parser vs lxml = 속도 차이
         ls1 = self.find_bugs_music(soup, 'title')
         ls2 = self.find_bugs_music(soup, 'artist')
-        dt = {i:j for i, j in zip(ls1, ls2)}
+        dt = {i: j for i, j in zip(ls1, ls2)}
         dt1 = dict(zip(ls1, ls2))
         l = [i + j for i, j in zip(ls1, ls2)]
         l1 = list(zip(ls1, ls2))
@@ -243,11 +243,25 @@ class Quiz20:
          1  3  4
          2  5  6
         '''
+        df3 = pd.DataFrame.from_dict(d2, orient="index")
+        '''
+           0  1  2
+        1  1  3  5
+        2  2  4  6
+        '''
+        df4 = pd.DataFrame.from_dict(d2, orient="index", columns=['A', 'B', 'C'])
+        '''
+           A  B  C
+        1  1  3  5
+        2  2  4  6
+        '''
         columns = [chr(i) for i in range(97, 100)]
         odds = []
         evens = []
         [odds.append(i) if i % 2 != 0 else evens.append(i) for i in range(1, 7)]
-        d3 = {'1': odds, '2': evens}
-        df3 = pd.DataFrame.from_dict(d3, orient='index', columns=columns)
-        print(df3)
+        d3 = ['1', '2']  # TypeError: unhashable type
+        d4 = [odds, evens]
+        d5 = {i: j for i, j in zip(d3, d4)}
+        df5 = pd.DataFrame.from_dict(d5, orient='index', columns=columns)
+        print(df5)
         return None
