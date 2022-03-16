@@ -2,66 +2,69 @@ from icecream import ic
 from context.models import Model
 from context.domains import Dataset
 class TitanicModel(object):
+    dataset = Dataset()
+    model = Model()
     def __init__(self, train_fname, test_fname):
-        self.model = Model()
-        self.dataset = Dataset()
         self.train = self.model.new_model(train_fname)
         self.test = self.model.new_model(test_fname)
-        # id 추출
         ic(f'트레인 컬럼 {self.train.columns}')
         ic(f'트레인 헤드 {self.train.head()}')
         ic(self.train)
+        # id 추출
 
     def preprocess(self):
-        self.create_label()
-        self.sibsp_garbage()
-        self.parch_garbage()
-        self.ticket_garbage()
-        self.cabin_garbage()
-        self.name_nominal()
-        self.embarked_nominal()
-        self.fare_ratio()
-        self.pclass_ordinal()
-        self.sex_nominal()
-        self.age_ratio()
-        self.create_train()
+        df = self.train
+        df = self.drop_feature(df)
+        df = self.create_label(df)
+        df = self.create_train(df)
+        df = self.name_nominal(df)
+        df = self.embarked_nominal(df)
+        df = self.fare_ratio(df)
+        df = self.pclass_ordinal(df)
+        df = self.sex_nominal(df)
+        df = self.age_ratio(df)
+        return df
 
-    def create_label(self):
-        pass
+    @staticmethod
+    def create_label(df) -> object:
+        return df
 
-    def create_train(self) -> object:
-        pass
+    @staticmethod
+    def create_train(df) -> object:
+        return df
 
-    def drop_feature(self) -> object:
-        pass
+    def drop_feature(self, df) -> object:
 
-    def pclass_ordinal(self) -> object:
-        pass
+        '''
+        self.sibsp_garbage(df)
+        self.parch_garbage(df)
+        self.ticket_garbage(df)
+        self.cabin_garbage(df
+        '''
 
-    def name_nominal(self) -> object:
-        pass
+        return df
 
-    def sex_nominal(self) -> object:
-        pass
+    @staticmethod
+    def pclass_ordinal(df) -> object:
+        return df
 
-    def age_ratio(self) -> object:
-        pass
+    @staticmethod
+    def name_nominal(df) -> object:
+        return df
 
-    def sibsp_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def sex_nominal(df) -> object:
+        return df
 
-    def parch_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def age_ratio(df) -> object:
+        return df
 
-    def ticket_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def fare_ratio(df) -> object:
+        return df
 
-    def fare_ratio(self) -> object:
-        pass
-
-    def cabin_garbage(self) -> object:
-        self.drop_feature()
-
-    def embarked_nominal(self) -> object:
-        pass
+    @staticmethod
+    def embarked_nominal(df) -> object:
+        return df
 
