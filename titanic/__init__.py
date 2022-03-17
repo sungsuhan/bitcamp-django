@@ -13,8 +13,8 @@ if __name__ == '__main__':
             template = TitanicTemplate(fname='train.csv')
             template.visualize()
         elif menu == '2':
-            print(' ### 2.전처리 ###')
-            model = TitanicModel(train_fname='train.csv', test_fname='test.csv')
-            model.preprocess()
+            print(' ### 2.전처리 ### ')
+            model = TitanicModel()
+            model.preprocess(train_fname='train.csv', test_fname='test.csv')
         else:
             break
