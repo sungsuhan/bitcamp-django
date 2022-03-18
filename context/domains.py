@@ -3,14 +3,14 @@ from dataclasses import dataclass
 
 @dataclass
 class Dataset:
-    context : str
-    dname : str
-    sname : str
-    fname : str
-    train : str
-    test : str
-    id : str
-    lable : str
+    context: str
+    dname: str
+    sname: str
+    fname: str
+    train: str
+    test: str
+    id: str
+    lable: str
 
     @property
     def context(self) -> str: return self._context
