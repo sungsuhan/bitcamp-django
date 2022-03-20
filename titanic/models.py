@@ -30,9 +30,10 @@ class TitanicModel(object):
         this = self.embarked_nominal(this)
         this = self.age_ratio(this)
         this = self.drop_feature(this, 'Age')
+        this = self.fare_ratio(this)
+        this = self.drop_feature(this, 'Fare')
         '''
         this = self.pclass_ordinal(this)
-        this = self.fare_ratio(this)
         '''
         self.df_info(this)
         return this
@@ -153,6 +154,11 @@ class TitanicModel(object):
         return this
 
     @staticmethod
-    def fare_ratio(this) -> object:
+    def fare_ratio(this) -> object:  # 4등분
+        fare_mapping = {'Very Cheap': 1, 'Cheap': 2, 'Expensive': 3, 'Very Expensive': 4}
+        this.test['Fare'] = this.test['Fare'].fillna(1)
+        labels = ['Very Cheap', 'Cheap', 'Expensive', 'Very Expensive']
+        for these in this.train, this.test:
+            these['FareBand'] = pd.qcut(these['Fare'], 4, labels=labels)
+            these['FareBand'] = these['FareBand'].map(fare_mapping)
         return this
-
