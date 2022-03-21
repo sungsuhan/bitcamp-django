@@ -42,6 +42,19 @@ class TitanicModel(object):
         # self.df_info(this)
         return this
 
+    def learning(self, train_fname, test_fname):
+        this = self.preprocess(train_fname, test_fname)
+        k_fold = self.create_k_fold()
+        ic(f'사이킷런 알고리즘 정확도: {self.get_accuracy(this, k_fold)}')
+        self.submit(this)
+
+    @staticmethod
+    def submit(this):
+        clf = RandomForestClassifier()
+        clf.fit(this.train, this.label)
+        prediction = clf.predict(this.test)
+        pd.DataFrame({'PassengerId': this.id, 'Survived': prediction}).to_csv('./save/submission.csv', index=False)
+
     @staticmethod
     def df_info(this):
         [ic(f'{i.info()}') for i in [this.train, this.test]]
@@ -94,7 +107,7 @@ class TitanicModel(object):
         for dataset in [this.train, this.test]:
             a += list(set(dataset['Title']))
         a = list(set(a))
-        print(f'>>>{a}')
+        # print(f'>>>{a}')
         '''
         >['Lady', 'Mr', 'Dona', 'Col', 'Mlle', 'Mme', 'Major', 'Capt', 'Countess', 
         'Rev', 'Dr', 'Ms', 'Mrs', 'Don', 'Sir', 'Jonkheer', 'Miss', 'Master']
@@ -155,11 +168,11 @@ class TitanicModel(object):
 
     @staticmethod
     def fare_ratio(this) -> object:  # 4등분
-        fare_mapping = {'Very Cheap': 1, 'Cheap': 2, 'Expensive': 3, 'Very Expensive': 4}
+        fare_mapping = {'Very Cheap': 1, 'Cheap': 2, 'Normal': 3, 'Expensive': 4, 'Very Expensive': 5}
         this.test['Fare'] = this.test['Fare'].fillna(1)
-        labels = ['Very Cheap', 'Cheap', 'Expensive', 'Very Expensive']
+        labels = ['Very Cheap', 'Cheap', 'Normal', 'Expensive', 'Very Expensive']
         for these in this.train, this.test:
-            these['FareBand'] = pd.qcut(these['Fare'], 4, labels=labels)
+            these['FareBand'] = pd.qcut(these['Fare'], 5, labels=labels)
             these['FareBand'] = these['FareBand'].map(fare_mapping)
         return this
 
