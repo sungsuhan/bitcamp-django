@@ -3,6 +3,9 @@ import pandas as pd
 from icecream import ic
 from context.models import Model
 from context.domains import Dataset
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
 class TitanicModel(object):
     dataset = Dataset()
     model = Model()
@@ -32,10 +35,11 @@ class TitanicModel(object):
         this = self.drop_feature(this, 'Age')
         this = self.fare_ratio(this)
         this = self.drop_feature(this, 'Fare')
-        '''
         this = self.pclass_ordinal(this)
-        '''
-        self.df_info(this)
+        k_fold = self.create_k_fold()
+        accuracy = self.get_accuracy(this, k_fold)
+        ic(accuracy)
+        # self.df_info(this)
         return this
 
     @staticmethod
@@ -75,10 +79,6 @@ class TitanicModel(object):
     def kwargs_sample(**kwargs) -> None:
         # ic(type(kwargs))  # tuple
         {print(''.join(f'key:{i}, val:{j}')) for i, j in kwargs.items()}  # key:name, val:이순신
-
-    @staticmethod
-    def pclass_ordinal(this) -> object:
-        return this
 
     @staticmethod
     def extract_title_from_name(this) -> object:
@@ -162,3 +162,16 @@ class TitanicModel(object):
             these['FareBand'] = pd.qcut(these['Fare'], 4, labels=labels)
             these['FareBand'] = these['FareBand'].map(fare_mapping)
         return this
+
+    @staticmethod
+    def pclass_ordinal(this) -> object:
+        return this
+
+    @staticmethod
+    def create_k_fold() -> object:
+        return KFold(n_splits=10, shuffle=True, random_state=0)
+
+    @staticmethod
+    def get_accuracy(this, k_fold):
+        score = cross_val_score(RandomForestClassifier(), this.train, this.label, cv=k_fold, n_jobs=1, scoring='accuracy')
+        return round(np.mean(score)*100, 2)
